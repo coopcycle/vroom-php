@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Vroom;
+namespace Vroom;
 
 /**
  * a RoutingProblem represents a set of tasks and vehicles

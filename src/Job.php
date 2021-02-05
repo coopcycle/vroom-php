@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Vroom;
+namespace Vroom;
 
 /**
  * @see https://github.com/VROOM-Project/vroom/blob/master/docs/API.md#jobs

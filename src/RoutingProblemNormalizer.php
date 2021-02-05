@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Vroom;
+namespace Vroom;
 
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Vroom;
+namespace Vroom;
 
 use Geocoder\Model\Coordinates;
 
