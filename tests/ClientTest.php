@@ -34,7 +34,7 @@ class ClientTest extends TestCase
         foreach ($coords as $coord) {
 
             $job = new Job(++$jobId);
-            $job->location = $coord->toArray();
+            $job->setLocation($coord);
             $job->timeWindows = [
                 [
                     (int) $after->format('U'),
