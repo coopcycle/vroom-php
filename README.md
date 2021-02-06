@@ -32,8 +32,8 @@ $coordinates = [
     new Coordinates(48.87600604599898, 2.3466110229492188),
 ];
 
-foreach ($coordinates as $coordinate) {
-    $job = new Job(1);
+foreach ($coordinates as $id => $coordinate) {
+    $job = new Job($id);
     $job->setLocation($coordinate);
 
     $problem->addJob($job);
