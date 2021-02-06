@@ -18,4 +18,10 @@ class Shipment
      * @var Job
      */
     public $delivery;
+
+    public function __construct(Job $pickup, Job $delivery)
+    {
+        $this->pickup = $pickup;
+        $this->delivery = $delivery;
+    }
 }

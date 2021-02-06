@@ -10,17 +10,27 @@ use Geocoder\Model\Coordinates;
  * and needs to go to point A, point B, point C, and point D in some arbitrary order, and then it must return to
  * homebase 2, start would be homebase 1 and end would be homebase 2.
  */
-
 class Vehicle
 {
+    /**
+     * @var int
+     */
+    private $id;
 
-    private $id; // an int representing a unique id for a vehicle
-
+    /**
+     * @var string
+     */
     private $profile = 'car';
 
-    private $start; // an address that this vehicle starts its route from
+    /**
+     * @var Coordinates
+     */
+    private $start;
 
-    private $end; // an address that this vehicle needs to end at
+    /**
+     * @var Coordinates
+     */
+    private $end;
 
     public function __construct(int $id)
     {

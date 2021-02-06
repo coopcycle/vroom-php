@@ -9,6 +9,7 @@ use Vroom\CoordinatesNormalizer;
 use Vroom\Job;
 use Vroom\RoutingProblem;
 use Vroom\Serializer;
+use Vroom\Shipment;
 use Vroom\Vehicle;
 
 class NormalizerTest extends TestCase
@@ -132,6 +133,71 @@ class NormalizerTest extends TestCase
                 2.3363113403320312,
                 48.87261892829001,
             ],
+        ], $result);
+    }
+
+    public function testNormalizeShipment()
+    {
+        $coords = [
+            new Coordinates(48.87261892829001, 2.3363113403320312),
+            new Coordinates(48.86923158125418, 2.3548507690429683),
+        ];
+
+        $jobs = [];
+
+        $now = new \DateTime();
+
+        $after = clone $now;
+        $after->modify('+5 minutes');
+
+        $before = clone $now;
+        $before->modify('+10 minutes');
+
+        foreach ($coords as $i => $coord) {
+
+            $job = new Job($i);
+            $job->setLocation($coord);
+            $job->timeWindows = [
+                [
+                    (int) $after->format('U'),
+                    (int) $before->format('U')
+                ]
+            ];
+
+            $jobs[] = $job;
+        }
+
+        $shipment = new Shipment(...$jobs);
+
+        $result = $this->serializer->normalize($shipment, 'json', [ AbstractObjectNormalizer::SKIP_NULL_VALUES => true ]);
+
+        $this->assertEquals([
+            'pickup' => [
+                'id' => 0,
+                'location' => [
+                    2.3363113403320312,
+                    48.87261892829001,
+                ],
+                'time_windows' => [
+                    [
+                        (int) $after->format('U'),
+                        (int) $before->format('U')
+                    ]
+                ]
+            ],
+            'delivery' => [
+                'id' => 1,
+                'location' => [
+                    2.3548507690429683,
+                    48.86923158125418,
+                ],
+                'time_windows' => [
+                    [
+                        (int) $after->format('U'),
+                        (int) $before->format('U')
+                    ]
+                ]
+            ]
         ], $result);
     }
 }
