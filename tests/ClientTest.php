@@ -15,9 +15,9 @@ class ClientTest extends TestCase
     public function testSolve()
     {
         $coords = [
-            new Coordinates(48.87261892829001, 2.3363113403320312),
-            new Coordinates(48.86923158125418, 2.3548507690429683),
-            new Coordinates(48.876006045998984,  2.3466110229492188)
+            new Coordinates(43.738648, 7.427826),
+            new Coordinates(43.737888, 7.423567),
+            new Coordinates(43.736183, 7.418642)
         ];
 
         $jobs = [];
@@ -46,9 +46,7 @@ class ClientTest extends TestCase
         }
 
         $vehicle1 = new Vehicle(1);
-        $vehicle1->setProfile('bike');
-        $vehicle1->setStart($coords[0]);
-        $vehicle1->setEnd($coords[0]);
+        $vehicle1->setStart(new Coordinates(43.734849, 7.420563));
 
         $routingProblem = new RoutingProblem();
 

@@ -1,0 +1,31 @@
+name: Test
+on: push
+jobs:
+  TEST:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: composer:v2, phpstan
+      - name: Install PHP dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --no-scripts
+      - name: Pull Docker images
+        run: |
+          docker pull osrm/osrm-backend:latest
+          docker pull vroomvrp/vroom-docker:v1.8.0
+      # https://github.com/Project-OSRM/osrm-backend/wiki/Docker-Recipes
+      - name: Start OSRM & VROOM
+        run: |
+          wget http://download.geofabrik.de/europe/monaco-latest.osm.pbf
+          docker run -t -v $(pwd):/data osrm/osrm-backend:latest osrm-extract -p /opt/car.lua /data/monaco-latest.osm.pbf
+          docker run -t -v $(pwd):/data osrm/osrm-backend:latest osrm-contract /data/monaco-latest.osrm
+          docker run -dt -i -p 5000:5000 -v $(pwd):/data --name osrm osrm/osrm-backend:latest osrm-routed /data/monaco-latest.osrm
+          docker run -dt -p 3000:3000 -v $(pwd)/tests/vroom-conf:/conf --link osrm vroomvrp/vroom-docker:v1.8.0
+      - name: Wait for VROOM
+        run: until curl -v http://localhost:3000; do sleep 5; done
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit
