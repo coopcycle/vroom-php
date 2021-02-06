@@ -18,6 +18,7 @@ Usage
 ```php
 
 use Geocoder\Model\Coordinates;
+use Vroom\Client;
 use Vroom\Job;
 use Vroom\RoutingProblem;
 use Vroom\Vehicle;
