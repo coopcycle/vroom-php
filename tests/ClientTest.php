@@ -45,7 +45,11 @@ class ClientTest extends TestCase
             $jobs[] = $job;
         }
 
-        $vehicle1 = new Vehicle(1, 'bike', $coords[0], $coords[0]);
+        $vehicle1 = new Vehicle(1);
+        $vehicle1->setProfile('bike');
+        $vehicle1->setStart($coords[0]);
+        $vehicle1->setEnd($coords[0]);
+
         $routingProblem = new RoutingProblem();
 
         foreach ($jobs as $job){

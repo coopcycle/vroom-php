@@ -51,7 +51,11 @@ class NormalizerTest extends TestCase
             $jobs[] = $job;
         }
 
-        $vehicle1 = new Vehicle(1, 'bike', $coords[0], $coords[0]);
+        $vehicle1 = new Vehicle(1);
+        $vehicle1->setProfile('bike');
+        $vehicle1->setStart($coords[0]);
+        $vehicle1->setEnd($coords[0]);
+
         $routingProblem = new RoutingProblem();
 
         foreach ($jobs as $job){
@@ -94,10 +98,10 @@ class NormalizerTest extends TestCase
 
     public function testNormalizeVehicle()
     {
-        $vehicle = new Vehicle(1, 'bike',
-            new Coordinates(48.87261892829001, 2.3363113403320312),
-            new Coordinates(48.86923158125418, 2.3548507690429683)
-        );
+        $vehicle = new Vehicle(1);
+        $vehicle->setProfile('bike');
+        $vehicle->setStart(new Coordinates(48.87261892829001, 2.3363113403320312));
+        $vehicle->setEnd(new Coordinates(48.86923158125418, 2.3548507690429683));
 
         $result = $this->serializer->normalize($vehicle);
 
