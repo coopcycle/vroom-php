@@ -34,8 +34,7 @@ class ClientTest extends TestCase
 
         foreach ($coords as $coord) {
 
-            $job = new Job();
-            $job->id = $jobId;
+            $job = new Job(++$jobId);
             $job->location = $coord->toArray();
             $job->time_windows = [
                 [
@@ -45,8 +44,6 @@ class ClientTest extends TestCase
             ];
 
             $jobs[] = $job;
-
-            $jobId += 1;
         }
 
         $vehicle1 = new Vehicle(1, 'bike', $coords[0], $coords[0]);

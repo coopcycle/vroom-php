@@ -74,5 +74,4 @@ class RoutingProblemNormalizer implements NormalizerInterface
     {
         return $data instanceof RoutingProblem;
     }
-
 }
