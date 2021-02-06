@@ -1,1 +1,44 @@
-# vroom-php
+vroom-php
+=========
+
+Installation
+------------
+
+The recommended way to install **vroom-php** is through [composer](http://getcomposer.org).
+
+Run the following on the command line:
+
+```
+php composer require coopcycle/vroom-php
+```
+
+Usage
+-----
+
+```php
+
+use Geocoder\Model\Coordinates;
+use Vroom\Job;
+use Vroom\RoutingProblem;
+use Vroom\Vehicle;
+
+$problem = new RoutingProblem();
+$problem->addVehicle(new Vehicle(1, 'bike'));
+
+$coordinates = [
+    new Coordinates(48.87261892829001, 2.3363113403320312),
+    new Coordinates(48.86923158125418, 2.3548507690429683),
+    new Coordinates(48.87600604599898, 2.3466110229492188),
+];
+
+foreach ($coordinates as $coordinate) {
+    $job = new Job(1);
+    $job->setLocation($coordinate);
+
+    $problem->addJob($job);
+}
+
+$client = new Client(['base_uri' => 'http://localhost:3000']);
+
+$response = $client->solve($problem);
+```
