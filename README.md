@@ -23,8 +23,11 @@ use Vroom\Job;
 use Vroom\RoutingProblem;
 use Vroom\Vehicle;
 
+$vehicle = new Vehicle(1);
+$vehicle->setStart(new Coordinates(48.87261892829001, 2.3363113403320312));
+
 $problem = new RoutingProblem();
-$problem->addVehicle(new Vehicle(1, 'bike'));
+$problem->addVehicle($vehicle);
 
 $coordinates = [
     new Coordinates(48.87261892829001, 2.3363113403320312),
