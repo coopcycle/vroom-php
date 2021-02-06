@@ -2,34 +2,20 @@
 
 namespace Vroom\Tests;
 
-use Doctrine\Common\Annotations\AnnotationReader;
 use Geocoder\Model\Coordinates;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
-use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 use Vroom\CoordinatesNormalizer;
 use Vroom\Job;
 use Vroom\RoutingProblem;
+use Vroom\Serializer;
 use Vroom\Vehicle;
 
 class NormalizerTest extends TestCase
 {
     public function setUp(): void
     {
-        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
-        $metadataAwareNameConverter = new MetadataAwareNameConverter($classMetadataFactory);
-
-        $normalizers = [
-            new CoordinatesNormalizer(),
-            new ObjectNormalizer($classMetadataFactory, $metadataAwareNameConverter),
-        ];
-
-        $this->serializer = new Serializer($normalizers);
+        $this->serializer = new Serializer();
     }
 
     public function testNormalization()

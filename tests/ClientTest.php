@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 use Vroom\Client;
 use Vroom\Job;
 use Vroom\RoutingProblem;
-use Vroom\RoutingProblemNormalizer;
 use Vroom\Vehicle;
 
 class ClientTest extends TestCase
